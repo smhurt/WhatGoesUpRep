@@ -97,7 +97,7 @@ public class Game implements Runnable{
 		long lastTime = System.nanoTime();
 		long timer = 0;
 		int ticks = 0;
-		
+		//test
 		while(running) {
 			now = System.nanoTime();
 			delta += (now - lastTime) / timePerTick;
