@@ -8,13 +8,12 @@ public class Player extends Creature {
 
 	private static int playerHeight = 50;
 	private static int playerWidth = 50;
-	private static double playerSpeed;
-	private static double playerJumpSpeed;
-	private static double playerAccel;
 	
-	public Player(Handler handler, double x, double y) {
+	
+	
+	public Player(Handler handler, double x, double y, double speed) {
 		super(handler, x, y, playerHeight, playerWidth);
-		
+		this.speed = speed;
 	}
 
 	@Override
@@ -48,6 +47,9 @@ public class Player extends Creature {
 		}
 		else if(handler.getKeyManager().up) {
 			yMove = -jumpSpeed;
+		}
+		else {
+			yMove = 0;
 		}
 		
 		move();

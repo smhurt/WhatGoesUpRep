@@ -33,8 +33,17 @@ public abstract class Entity {
 	}
 	
 	public boolean isCollision(Entity o) {
-		if (o == this) return false;
-		return getBound().intersects(o.getBound());
+		if(this.x + this.width <= o.x ||
+				this.x >= o.x + o.width ||
+				this.y + this.width <= o.y ||
+				this.y >= o.y + o.height) {
+			
+			return  false;
+		}
+		else {
+			
+			return  true;
+		}
 	}
 	
 	
