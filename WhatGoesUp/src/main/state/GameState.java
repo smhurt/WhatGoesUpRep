@@ -10,6 +10,8 @@ import main.gfx.Assets;
 import main.gfx.Background;
 import main.entities.creatures.*;
 
+// random comment for github test
+//another comment
 
 public class GameState extends State{
 	
