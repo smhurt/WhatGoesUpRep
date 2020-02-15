@@ -14,6 +14,7 @@ public class Player extends Creature {
 	public Player(Handler handler, double x, double y, double speed) {
 		super(handler, x, y, playerHeight, playerWidth);
 		this.speed = speed;
+		this.jumpSpeed = 20;
 	}
 
 	@Override
@@ -51,6 +52,7 @@ public class Player extends Creature {
 		else {
 			yMove = 0;
 		}
+		if(y > handler.getHeight()) y = -height;
 		
 		move();
 		

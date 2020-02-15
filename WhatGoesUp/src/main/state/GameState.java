@@ -21,7 +21,7 @@ public class GameState extends State{
 	
 	private Player player;
 	
-	private Platform platform1;
+	private Platform platform1, platform2;
 	
 	public GameState(Handler handler) {
 		super(handler);
@@ -32,13 +32,14 @@ public class GameState extends State{
 		
 		platform1 = new Platform(handler, 200, 500, 200, 50);
 		
-		
+		platform2 = new Platform(handler, 400, 300, 200, 50);
+
 	}
 
 	@Override
 	public void tick() {
 		player.tick();
-		if(player.isCollision(platform1)) {
+		if(player.isCollision(platform1) || player.isCollision(platform2)) {
 			player.setOnGround(true);
 		}
 		else {
@@ -52,6 +53,8 @@ public class GameState extends State{
 		background.render(g);
 		player.render(g);
 		platform1.render(g);
+		platform2.render(g);
+
 	}
 	
 	
