@@ -20,7 +20,7 @@ public abstract class Entity {
 	protected boolean onLeft;
 	protected boolean onRight;
 
-
+//github test
 	
 	
 	public Entity(Handler handler, double x, double y, int width, int height) {
