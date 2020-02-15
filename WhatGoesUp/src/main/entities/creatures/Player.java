@@ -1,5 +1,6 @@
 package main.entities.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import main.Handler;
@@ -24,7 +25,9 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect((int)x + 1, (int)y + 1, width - 2, height - 2);
+		g.setColor(Color.BLUE);
+		g.fillRect((int)x + 1, (int)y + 1, width, height);
+		
 	}
 	
 	private void playerMovement() {
@@ -48,22 +51,26 @@ public class Player extends Creature {
 		
 		if(y > handler.getHeight()) y = -height;//wrap function (not for end product)
 		
-		if(!onGround && yMove <= 20) {
+		if(!(onGround|| adjGround) && yMove <= 20) {
 			yMove += accel;
 		}
 		if(onGround) {
 			System.out.println("Ground");
+			//if(handler.getKeyManager().up) {
+				//yMove = -jumpSpeed;
+			yMove = 0;
+			y = platOnBottom.getY() - this.getHeight();
+			
+		}
+		if(adjGround) {
 			if(handler.getKeyManager().up) {
-			yMove = -jumpSpeed;
-			}
-			else {
-				yMove = 0;
+				yMove = -jumpSpeed;
 			}
 		}
 		
 		if(onCeiling) {
 			yMove = 0;
-			y++;	
+			y = platOnTop.getY() + platOnTop.getHeight();	
 			System.out.println("Ceiling");
 		}
 		

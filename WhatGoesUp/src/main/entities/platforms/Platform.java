@@ -1,5 +1,6 @@
 package main.entities.platforms;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import main.Handler;
@@ -18,7 +19,8 @@ public class Platform extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect((int)x + 1, (int)y + 1, width - 2, height - 2);
+		g.setColor(Color.BLACK);
+		g.fillRect((int)x + 1, (int)y + 1, width, height);
 	}
 
 }

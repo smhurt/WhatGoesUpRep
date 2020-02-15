@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import main.Game;
 import main.Handler;
+import main.entities.platforms.Platform;
 
 public abstract class Entity {
 	
@@ -19,6 +20,12 @@ public abstract class Entity {
 	 				onCeiling;
 	protected boolean onLeft;
 	protected boolean onRight;
+	protected boolean adjGround;
+	protected Platform platOnBottom;
+	protected Platform platOnTop;
+	protected Platform platOnRight;
+	protected Platform platOnLeft;
+
 
 //github test
 	
@@ -172,6 +179,56 @@ public abstract class Entity {
 
 	public void setOnRight(boolean onRight) {
 		this.onRight = onRight;
+	}
+
+
+	public boolean getAdjGround() {
+		return adjGround;
+	}
+
+
+	public void setAdjGround(boolean adjGround) {
+		this.adjGround = adjGround;
+	}
+
+
+	public Platform getPlatOnLeft() {
+		return platOnLeft;
+	}
+
+
+	public void setPlatOnLeft(Platform platOnLeft) {
+		this.platOnLeft = platOnLeft;
+	}
+
+
+	public Platform getPlatOnBottom() {
+		return platOnBottom;
+	}
+
+
+	public void setPlatOnBottom(Platform platOnBottom) {
+		this.platOnBottom = platOnBottom;
+	}
+
+
+	public Platform getPlatOnTop() {
+		return platOnTop;
+	}
+
+
+	public void setPlatOnTop(Platform platOnTop) {
+		this.platOnTop = platOnTop;
+	}
+
+
+	public Platform getPlatOnRight() {
+		return platOnRight;
+	}
+
+
+	public void setPlatOnRight(Platform platOnRight) {
+		this.platOnRight = platOnRight;
 	}
 	
 }

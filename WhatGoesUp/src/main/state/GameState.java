@@ -8,6 +8,7 @@ import main.collisions.Collision;
 import main.entities.platforms.Platform;
 import main.gfx.Assets;
 import main.gfx.Background;
+import main.entities.Entity;
 import main.entities.creatures.*;
 
 // random comment for github test
@@ -23,6 +24,8 @@ public class GameState extends State{
 	
 	private Platform platform1, platform2;
 	
+	private ArrayList<Platform> p = new ArrayList<Platform>(100);
+	
 	public GameState(Handler handler) {
 		super(handler);
 		
@@ -30,29 +33,56 @@ public class GameState extends State{
 		
 		player = new Player(handler, 200, 300, 4);
 		
-		platform1 = new Platform(handler, 200, 500, 200, 50);
+		p.add( new Platform(handler, 200, 550, 200, 50));
 		
-		platform2 = new Platform(handler, 400, 450, 200, 50);
+		p.add(new Platform(handler, 400, 450, 200, 50));
 
+		p.add(new Platform(handler, 0, 450, 200, 50));
+		
+		p.add(new Platform(handler, 200,200, 200, 50));
 	}
 
 	@Override
 	public void tick() {
 		player.tick();
-		player.setOnGround(Collision.isCollisionBottom(player, platform1) || Collision.isCollisionBottom(player, platform2));
-		player.setOnCeiling(Collision.isCollisionTop(player, platform1) || Collision.isCollisionTop(player, platform2));
-		player.setOnLeft(Collision.isCollisionLeft(player, platform1) || Collision.isCollisionLeft(player, platform2));
-		player.setOnRight(Collision.isCollisionRight(player, platform1) || Collision.isCollisionRight(player, platform2));
+		
+		player.setOnGround(false);
+		player.setAdjGround(false);
+		player.setOnCeiling(false);
+		player.setOnLeft(false);
+		player.setOnRight(false);
+		
+		for (Platform plat: p) {
+			if (Collision.isCollisionBottom(player, plat)) {
+				player.setOnGround(true);
+				player.setPlatOnBottom(plat);
+			}
+			if (Collision.isAdjacentBottom(player, plat)) {
+				player.setAdjGround(true);
+			}
+			if (Collision.isCollisionTop(player, plat)) {
+				player.setOnCeiling(true);
+				player.setPlatOnTop(plat);
+			}
+			if (Collision.isCollisionLeft(player, plat)) {
+				player.setOnLeft(true);
+				player.setPlatOnLeft(plat);
 
+			}
+			if (Collision.isCollisionRight(player, plat)) {
+				player.setOnRight(true);
+				player.setPlatOnRight(plat);
+			}
+		}
 	}
 
 	@Override
 	public void render(Graphics g) {
 		background.render(g);
 		player.render(g);
-		platform1.render(g);
-		platform2.render(g);
-
+		for (Platform plat:p) {
+			plat.render(g);
+		}
 	}
 	
 	
