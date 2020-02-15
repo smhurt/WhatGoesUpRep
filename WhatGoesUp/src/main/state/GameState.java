@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import main.Handler;
+import main.collisions.Collision;
 import main.entities.platforms.Platform;
 import main.gfx.Assets;
 import main.gfx.Background;
@@ -38,10 +39,10 @@ public class GameState extends State{
 	@Override
 	public void tick() {
 		player.tick();
-		player.setOnGround(player.isCollisionBottom(platform1) || player.isCollisionBottom(platform2));
-		player.setOnCeiling(player.isCollisionTop(platform1) || player.isCollisionTop(platform2));
-		player.setOnLeft(player.isCollisionLeft(platform1) || player.isCollisionLeft(platform2));
-		player.setOnRight(player.isCollisionRight(platform1) || player.isCollisionRight(platform2));
+		player.setOnGround(Collision.isCollisionBottom(player, platform1) || Collision.isCollisionBottom(player, platform2));
+		player.setOnCeiling(Collision.isCollisionTop(player, platform1) || Collision.isCollisionTop(player, platform2));
+		player.setOnLeft(Collision.isCollisionLeft(player, platform1) || Collision.isCollisionLeft(player, platform2));
+		player.setOnRight(Collision.isCollisionRight(player, platform1) || Collision.isCollisionRight(player, platform2));
 
 	}
 
