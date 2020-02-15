@@ -24,7 +24,7 @@ public class GameState extends State{
 		
 		background = new Background(handler, Assets.battlefieldSprite);
 		
-		player = new Player(handler, 200, 300);
+		player = new Player(handler, 200, 300, 4);
 		
 		platform1 = new Platform(handler, 200, 500, 200, 50);
 		
