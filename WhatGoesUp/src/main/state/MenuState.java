@@ -16,9 +16,9 @@ public class MenuState extends State{
 	public void tick() {
 		
 	}
-
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double xOffset, double yOffset) {
+		// TODO Auto-generated method stub
 		
 	}
 

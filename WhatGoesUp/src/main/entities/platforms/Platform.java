@@ -17,10 +17,11 @@ public class Platform extends Entity {
 		
 	}
 
+
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double xOffset, double yOffset) {
 		g.setColor(Color.BLACK);
-		g.fillRect((int)x + 1, (int)y + 1, width, height);
+		g.fillRect((int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height);		
 	}
 
 }

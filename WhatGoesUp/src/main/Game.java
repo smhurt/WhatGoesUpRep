@@ -32,6 +32,7 @@ public class Game implements Runnable{
 	private KeyManager keyManager;
 	
 	//camera
+	private GameCamera gameCamera;
 	
 	//handler
 	private Handler handler;
@@ -50,6 +51,7 @@ public class Game implements Runnable{
 		display.getJFRame().addKeyListener(keyManager);
 		Assets.init();
 		
+		gameCamera = new GameCamera(0,0);
 		
 		handler = new Handler(this);
 		
@@ -78,7 +80,7 @@ public class Game implements Runnable{
 		g.clearRect(0,0,width,height);
 		//Draw Here
 		if(State.getState() != null) {
-			State.getState().render(g);
+			State.getState().render(g, gameCamera.getxOffset(), gameCamera.getyOffset());
 		}
 		
 		//end Drawing
@@ -132,6 +134,10 @@ public class Game implements Runnable{
 
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
 	}
 	
 	public GameState getGameState() {

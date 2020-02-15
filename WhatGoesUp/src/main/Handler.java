@@ -1,5 +1,6 @@
 package main;
 
+import main.gfx.GameCamera;
 import main.input.KeyManager;
 
 public class Handler {
@@ -14,6 +15,9 @@ public class Handler {
 	
 	public KeyManager getKeyManager() {
 		return game.getKeyManager();
+	}
+	public GameCamera getGameCamera() {
+		return game.getGameCamera();
 	}
 	
 	public int getWidth() {

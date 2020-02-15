@@ -29,6 +29,8 @@ public class GameState extends State{
 	public GameState(Handler handler) {
 		super(handler);
 		
+		
+		
 		background = new Background(handler, Assets.battlefieldSprite);
 		
 		player = new Player(handler, 200, 300, 4);
@@ -40,11 +42,17 @@ public class GameState extends State{
 		p.add(new Platform(handler, 0, 450, 200, 50));
 		
 		p.add(new Platform(handler, 200,200, 200, 50));
+		
+		p.add(new Platform(handler, 600, 450, 200, 50));
+
+		p.add(new Platform(handler, -200, 450, 200, 50));
+
 	}
 
 	@Override
 	public void tick() {
 		player.tick();
+		
 		
 		player.setOnGround(false);
 		player.setAdjGround(false);
@@ -77,11 +85,11 @@ public class GameState extends State{
 	}
 
 	@Override
-	public void render(Graphics g) {
-		background.render(g);
-		player.render(g);
+	public void render(Graphics g, double xOffset, double yOffset) {
+		background.render(g);//, xOffset, yOffset);
+		player.render(g, xOffset, yOffset);
 		for (Platform plat:p) {
-			plat.render(g);
+			plat.render(g, xOffset, yOffset);
 		}
 	}
 	
