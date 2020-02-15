@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import main.Handler;
-import main.entities.creatures.Enemy;
 import main.entities.platforms.Platform;
 import main.gfx.Assets;
 import main.gfx.Background;
@@ -32,20 +31,18 @@ public class GameState extends State{
 		
 		platform1 = new Platform(handler, 200, 500, 200, 50);
 		
-		platform2 = new Platform(handler, 400, 300, 200, 50);
+		platform2 = new Platform(handler, 400, 450, 200, 50);
 
 	}
 
 	@Override
 	public void tick() {
 		player.tick();
-		if(player.isCollision(platform1) || player.isCollision(platform2)) {
-			player.setOnGround(true);
-		}
-		else {
-			player.setOnGround(false);
-		
-		}
+		player.setOnGround(player.isCollisionBottom(platform1) || player.isCollisionBottom(platform2));
+		player.setOnCeiling(player.isCollisionTop(platform1) || player.isCollisionTop(platform2));
+		player.setOnLeft(player.isCollisionLeft(platform1) || player.isCollisionLeft(platform2));
+		player.setOnRight(player.isCollisionRight(platform1) || player.isCollisionRight(platform2));
+
 	}
 
 	@Override

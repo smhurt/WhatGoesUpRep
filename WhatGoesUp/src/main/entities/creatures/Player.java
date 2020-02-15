@@ -31,28 +31,41 @@ public class Player extends Creature {
 		xMove = 0;
 		
 		//left right movement
-		if(handler.getKeyManager().left) {
+		if(handler.getKeyManager().left && !onLeft) {
 			
 			xMove = -speed;
 		
 		}
-		if(handler.getKeyManager().right) {			
+		if(handler.getKeyManager().right && !onRight) {			
 		
 			xMove = speed;
 		
 		}
+		if(onLeft) {x++; System.out.println("left");}
+		if(onRight) {x--; System.out.println("Right");}
 		
 		//jump/accellerate
-		if(!onGround) {
+		
+		if(y > handler.getHeight()) y = -height;//wrap function (not for end product)
+		
+		if(!onGround && yMove <= 20) {
 			yMove += accel;
 		}
-		else if(handler.getKeyManager().up) {
+		if(onGround) {
+			System.out.println("Ground");
+			if(handler.getKeyManager().up) {
 			yMove = -jumpSpeed;
+			}
+			else {
+				yMove = 0;
+			}
 		}
-		else {
+		
+		if(onCeiling) {
 			yMove = 0;
+			y++;	
+			System.out.println("Ceiling");
 		}
-		if(y > handler.getHeight()) y = -height;
 		
 		move();
 		

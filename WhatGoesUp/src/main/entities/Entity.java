@@ -10,12 +10,16 @@ import main.Handler;
 public abstract class Entity {
 	
 	protected Handler handler;
-	protected double x;
+	public double x;
 	public double y;
 	protected int width, height;
 	protected BufferedImage image;
-	protected boolean gravity;
-	protected boolean onGround;
+	protected boolean gravity,
+	 				onGround,
+	 				onCeiling;
+	protected boolean onLeft;
+	protected boolean onRight;
+
 
 	
 	
@@ -32,11 +36,50 @@ public abstract class Entity {
 		return new Rectangle((int)x,(int)y, width, height);
 	}
 	
-	public boolean isCollision(Entity o) {
+	public boolean isCollisionBottom(Entity o) {
 		if(this.x + this.width <= o.x ||
 				this.x >= o.x + o.width ||
-				this.y + this.width <= o.y ||
+				this.y + this.height <= o.y ||
+				this.y  + this.height >= o.y + o.height) {
+			
+			return  false;
+		}
+		else {
+			
+			return  true;
+		}
+	}
+	public boolean isCollisionTop(Entity o) {
+		if(this.x + this.width <= o.x ||
+				this.x >= o.x + o.width ||
+				this.y <= o.y ||
 				this.y >= o.y + o.height) {
+			
+			return  false;
+		}
+		else {
+			
+			return  true;
+		}
+	}
+	public boolean isCollisionLeft(Entity o) {
+		if(this.x < o.x ||
+				this.x > o.x + o.width ||
+				this.y + this.height - 10 < o.y ||
+				this.y > o.y + o.height) {
+			
+			return  false;
+		}
+		else {
+			
+			return  true;
+		}
+	}
+	public boolean isCollisionRight(Entity o) {
+		if(this.x + width < o.x||
+				this.x + width > o.x + o.width ||
+				this.y + this.height - 10 < o.y ||
+				this.y > o.y + o.height) {
 			
 			return  false;
 		}
@@ -99,6 +142,36 @@ public abstract class Entity {
 
 	public void setOnGround(boolean onGround) {
 		this.onGround = onGround;
+	}
+
+
+	public boolean getOnCeiling() {
+		return onCeiling;
+	}
+
+
+	public void setOnCeiling(boolean onCeiling) {
+		this.onCeiling = onCeiling;
+	}
+
+
+	public boolean getOnLeft() {
+		return onLeft;
+	}
+
+
+	public void setOnLeft(boolean onLeft) {
+		this.onLeft = onLeft;
+	}
+
+
+	public boolean getOnRight() {
+		return onRight;
+	}
+
+
+	public void setOnRight(boolean onRight) {
+		this.onRight = onRight;
 	}
 	
 }
