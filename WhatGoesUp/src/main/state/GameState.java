@@ -95,7 +95,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g, double xOffset, double yOffset) {
-		background.render(g);//, xOffset, yOffset);
+		background.render(g, xOffset, yOffset);
 		player.render(g, xOffset, yOffset);
 		for (Platform plat:p) {
 			plat.render(g, xOffset, yOffset);

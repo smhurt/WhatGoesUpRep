@@ -15,7 +15,7 @@ public class Player extends Creature {
 	private static boolean doubleJump = true;
 	
 	private static double chargeTime = 60, chargeCount = 0, chargeStrength = 30;
-	
+	private double burstDuration; 
 	
 	public Player(Handler handler, double x, double y, double speed) {
 		super(handler, x, y, playerHeight, playerWidth);
@@ -76,6 +76,7 @@ public class Player extends Creature {
 		if(chargeCount >= chargeTime && !handler.getKeyManager().down) {
 			yMove = -chargeStrength;
 			chargeCount = 0;
+			doubleJump = false;
 		}
 		else if(!handler.getKeyManager().down) {
 			chargeCount = 0;

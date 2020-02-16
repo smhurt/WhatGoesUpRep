@@ -15,7 +15,7 @@ public class Background {
 		this.handler = handler;
 	}
 	
-	public void render(Graphics g){
-		g.drawImage(bi, 0, 0, handler.getWidth(), handler.getHeight(), null);
+	public void render(Graphics g, double xOffset, double yOffset){
+		g.drawImage(bi, (int)-xOffset, (int)-yOffset, handler.getWidth(), handler.getHeight(), null);
 	}
 }
