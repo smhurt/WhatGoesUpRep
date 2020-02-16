@@ -14,7 +14,7 @@ public class Player extends Creature {
 	
 	private static boolean doubleJump = true;
 	
-	private static double chargeCount;
+	private static double chargeTime = 60, chargeCount = 0, chargeStrength = 30;
 	
 	
 	public Player(Handler handler, double x, double y, double speed) {
@@ -65,13 +65,21 @@ public class Player extends Creature {
 				yMove += accel;
 			}
 			//double jump
-			if(doubleJump && handler.getKeyManager().upPressed) {
+			if(doubleJump && handler.getKeyManager().upPressed && yMove > -jumpSpeed) {
 				yMove = -jumpSpeed;
 				doubleJump = false;
 			}
 		}
+		else doubleJump = true;
 		
 		//burst upward
+		if(chargeCount >= chargeTime && !handler.getKeyManager().down) {
+			yMove = -chargeStrength;
+			chargeCount = 0;
+		}
+		else if(!handler.getKeyManager().down) {
+			chargeCount = 0;
+		}
 		//prevents falling into ground
 		if(onGround) {
 			System.out.println("Ground");
@@ -86,10 +94,9 @@ public class Player extends Creature {
 			if(handler.getKeyManager().up) {
 				
 				yMove = -jumpSpeed;
-				doubleJump = true;
 			}
 			if(handler.getKeyManager().down) {
-				
+				chargeCount++;
 			}
 		}
 		//prevents going into ceiling
