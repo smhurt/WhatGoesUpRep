@@ -8,6 +8,12 @@ public class Collision {
 	public Collision() {
 	}
 	
+	public static boolean isCollision(Entity a, Entity b) {
+		return (!(a.getX() + a.getWidth() - 1 < b.getX() ||
+				a.getX() + 1 > b.getX() + b.getWidth() ||
+				a.getY() + a.getHeight() < b.getY() ||
+				a.getY() > b.getY() + b.getHeight()));
+	}
 	public static boolean isCollisionRight(Entity a, Entity b) {
 		return (!(a.getX() + a.getWidth() - 1 < b.getX() ||
 				a.getX() + a.getWidth() + 1 > b.getX() + b.getWidth() ||

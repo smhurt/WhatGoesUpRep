@@ -7,7 +7,6 @@ import main.Handler;
 
 public class MovingPlatformHor extends Platform {
 	boolean reachedStart = false;
-	public String direction = "left";	
 	double xStart, xEnd, yStart, yEnd;
 	public MovingPlatformHor(Handler handler, double x, double y, int width, int height, double xStart,  double xEnd, double speed, boolean moving) {
 		super(handler, x, y, width, height);
@@ -29,7 +28,7 @@ public class MovingPlatformHor extends Platform {
 	public void tick() {
 		if(x <= xStart) {
 			reachedStart = true;
-			direction = "right";
+			
 		}
 		else if(x >= xEnd) {
 			reachedStart = false;

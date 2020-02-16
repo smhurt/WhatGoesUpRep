@@ -4,21 +4,26 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import main.Handler;
+import main.gfx.Assets;
 
 public class Player extends Creature {
 
 	private static int playerHeight = 50;
-	private static int playerWidth = 50;
+	private static int playerWidth = 30;
 	
 	private static int viewShiftDistanceVert, viewShiftDistanceHor;
 	
+	public static boolean gameWon = false;
 	private static boolean doubleJump = true;
+	private static boolean doubleJumpUnlock = false;
+	private static boolean burstUnlock = false;
+	private static boolean faceRight = true;
+	private static boolean hasKey = false;
 	
-	private static double chargeTime = 60, chargeCount = 0, chargeStrength = 30;
-	private double burstDuration; 
+	private static double chargeTime = 20, chargeCount = 0, chargeStrength = 30;
 	
 	public Player(Handler handler, double x, double y, double speed) {
-		super(handler, x, y, playerHeight, playerWidth);
+		super(handler, x, y, playerWidth, playerHeight);
 		this.speed = speed;
 		this.jumpSpeed = 15;
 		viewShiftDistanceVert = handler.getHeight()/4;
@@ -36,7 +41,29 @@ public class Player extends Creature {
 	@Override
 	public void render(Graphics g, double xOffset, double yOffset) {
 		g.setColor(Color.BLUE);
-		g.fillRect((int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height);	
+		//g.fillRect((int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height);
+		if(faceRight) {
+			if(y > 6500) {
+				g.drawImage(Assets.playerSpriteDemonRight, (int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height, null);
+			}
+			else if(y < 3500) {
+				g.drawImage(Assets.playerSpriteAngelRight, (int)(x + 1 - xOffset - width), (int)(y + 1 - yOffset - height*.25), (int)(width * 2), (int)(height * 1.25), null);
+			}
+			else {
+			g.drawImage(Assets.playerSpriteRight, (int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height, null);
+			}
+		}
+		else {
+			if(y > 6500) {
+				g.drawImage(Assets.playerSpriteDemon, (int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height, null);
+			}
+			else if(y < 3500) {
+				g.drawImage(Assets.playerSpriteAngel, (int)(x + 1 - xOffset), (int)(y + 1 - yOffset - height*.25), (int)(width * 2), (int)(height * 1.25), null);
+			}
+			else {
+			g.drawImage(Assets.playerSprite, (int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height, null);
+			}
+		}
 	}
 	
 	private void playerMovement() {
@@ -57,7 +84,7 @@ public class Player extends Creature {
 		if(onRight) {x--; System.out.println("Right");}
 		
 		
-		if(y > handler.getHeight()) y = -height;//wrap function (not for end product)
+		//if(y > handler.getHeight()) y = -height;//wrap function (not for end product)
 		
 		//jump/accellerate
 		if(!(onGround|| adjGround)) {
@@ -65,7 +92,7 @@ public class Player extends Creature {
 				yMove += accel;
 			}
 			//double jump
-			if(doubleJump && handler.getKeyManager().upPressed && yMove > -jumpSpeed) {
+			if(doubleJumpUnlock && doubleJump && handler.getKeyManager().upPressed) {
 				yMove = -jumpSpeed;
 				doubleJump = false;
 			}
@@ -73,7 +100,7 @@ public class Player extends Creature {
 		else doubleJump = true;
 		
 		//burst upward
-		if(chargeCount >= chargeTime && !handler.getKeyManager().down) {
+		if(burstUnlock && chargeCount >= chargeTime && !handler.getKeyManager().down) {
 			yMove = -chargeStrength;
 			chargeCount = 0;
 			doubleJump = false;
@@ -83,7 +110,7 @@ public class Player extends Creature {
 		}
 		//prevents falling into ground
 		if(onGround) {
-			System.out.println("Ground");
+			//System.out.println("Ground");
 			//if(handler.getKeyManager().up) {
 				//yMove = -jumpSpeed;
 			yMove = 0;
@@ -92,7 +119,7 @@ public class Player extends Creature {
 		}
 		//normal ground state(slightly above the platform)
 		if(adjGround) {
-			if(handler.getKeyManager().up) {
+			if(handler.getKeyManager().upPressed) {
 				
 				yMove = -jumpSpeed;
 			}
@@ -105,6 +132,12 @@ public class Player extends Creature {
 			yMove = 0;
 			y = platOnTop.getY() + platOnTop.getHeight();	
 			System.out.println("Ceiling");
+		}
+		if(xMove > 0) {
+			faceRight = true;
+		}
+		else if(xMove < 0) {
+			faceRight = false;
 		}
 		if(platOnBottom != null) {
 			xMove += platOnBottom.xMove;
@@ -128,7 +161,21 @@ public class Player extends Creature {
 		}
 		
 	}
-
+	
+	public void addPower(String name) {
+		if(name.equals("DoubleJump")) {
+			doubleJumpUnlock = true;
+		}
+		else if(name.equals("Wings")) {
+			burstUnlock = true;
+		}
+		else if(name.equals("Key")) {
+			hasKey = true;
+		}
+		else if(name.equals("Door") && hasKey) {
+			gameWon = true;
+		}
+	}
 	
 
 }

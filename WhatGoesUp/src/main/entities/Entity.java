@@ -38,67 +38,6 @@ public abstract class Entity {
 		this.height = height;
 	}
 
-	
-	public Rectangle getBound() {
-		return new Rectangle((int)x,(int)y, width, height);
-	}
-	
-	public boolean isCollisionBottom(Entity o) {
-		if(this.x + this.width <= o.x ||
-				this.x >= o.x + o.width ||
-				this.y + this.height <= o.y ||
-				this.y  + this.height >= o.y + o.height) {
-			
-			return  false;
-		}
-		else {
-			
-			return  true;
-		}
-	}
-	public boolean isCollisionTop(Entity o) {
-		if(this.x + this.width <= o.x ||
-				this.x >= o.x + o.width ||
-				this.y <= o.y ||
-				this.y >= o.y + o.height) {
-			
-			return  false;
-		}
-		else {
-			
-			return  true;
-		}
-	}
-	public boolean isCollisionLeft(Entity o) {
-		if(this.x < o.x ||
-				this.x > o.x + o.width ||
-				this.y + this.height - 10 < o.y ||
-				this.y > o.y + o.height) {
-			
-			return  false;
-		}
-		else {
-			
-			return  true;
-		}
-	}
-	public boolean isCollisionRight(Entity o) {
-		if(this.x + width < o.x||
-				this.x + width > o.x + o.width ||
-				this.y + this.height - 10 < o.y ||
-				this.y > o.y + o.height) {
-			
-			return  false;
-		}
-		else {
-			
-			return  true;
-		}
-	}
-	
-	
-	
-
 	public abstract void tick();
 	
 	public abstract void render(Graphics g, double xOffset, double yOffset);

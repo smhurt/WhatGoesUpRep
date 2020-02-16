@@ -5,23 +5,38 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	
 	public static BufferedImage playerSprite,
-								playerBowDrawnSprite,
-								playerReleasedSprite,
-								battlefieldSprite,
-								pickaxeEnemySprite,
-								arrowSprite;
+								playerSpriteAngel,
+								playerSpriteDemon,
+								playerSpriteRight,
+								playerSpriteAngelRight,
+								playerSpriteDemonRight,
+								doubleJumpSprite,
+								wingsSprite,
+								
+								keySprite,
+								doorSprite
+								;
 	
 	public static void init() {
-		playerSprite = ImageLoader.loadImage("/textures/player.png");
+		playerSprite = ImageLoader.loadImage("/characterSprites/Normal_FemaleStand.gif");
 		
-		playerBowDrawnSprite = ImageLoader.loadImage("/textures/playerBowDrawn.png");
+		playerSpriteAngel = ImageLoader.loadImage("/characterSprites/Angel_FemaleStand.gif");
+
+		playerSpriteDemon = ImageLoader.loadImage("/characterSprites/Hell_FemaleStand.gif");
+
+		playerSpriteRight = ImageLoader.loadImage("/characterSprites/Normal_FemaleStandRight.png");
 		
-		playerReleasedSprite = ImageLoader.loadImage("/textures/playerReleased.png");
+		playerSpriteAngelRight = ImageLoader.loadImage("/characterSprites/Angel_FemaleStandRight.png");
+
+		playerSpriteDemonRight = ImageLoader.loadImage("/characterSprites/Hell_FemaleStandRight.png");
 		
-		battlefieldSprite = ImageLoader.loadImage("/textures/battlefield.jpg");
 		
-		arrowSprite = ImageLoader.loadImage("/textures/Arrow.png");
+		doubleJumpSprite = ImageLoader.loadImage("/textures/PowerUp_DoubleJump.gif");
+
+		wingsSprite = ImageLoader.loadImage("/textures/PowerUp_Wings.gif");
 		
-		pickaxeEnemySprite = ImageLoader.loadImage("/textures/pickaxeEnemy.png");
+		keySprite = ImageLoader.loadImage("/textures/Key.png");
+		
+		doorSprite = ImageLoader.loadImage("/textures/Door.png");
 	}
 }
