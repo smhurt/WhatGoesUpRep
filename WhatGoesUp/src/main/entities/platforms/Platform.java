@@ -7,7 +7,8 @@ import main.Handler;
 import main.entities.Entity;
 
 public class Platform extends Entity {
-
+	public boolean moving = false;
+	public double speed = 0, xMove, yMove;
 	public Platform(Handler handler, double x, double y, int width, int height) {
 		super(handler, x, y, width, height);
 	}
@@ -29,5 +30,9 @@ public class Platform extends Entity {
 		g.setColor(Color.BLACK);
 		g.fillRect((int)(x + 1 - xOffset), (int)(y + 1 - yOffset), width, height);		
 	}
-
+	
+	public void move() {
+		x += xMove;
+		y += yMove;
+	}
 }

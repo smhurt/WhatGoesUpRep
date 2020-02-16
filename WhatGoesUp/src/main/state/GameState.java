@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import main.Handler;
 import main.collisions.Collision;
+import main.entities.platforms.MovingPlatformHor;
+import main.entities.platforms.MovingPlatformVert;
 import main.entities.platforms.Platform;
 import main.gfx.Assets;
 import main.gfx.Background;
@@ -39,21 +41,24 @@ public class GameState extends State{
 		
 		p.add(new Platform(handler, 200, 550, 200, 50));
 		
-		p.add(new Platform(handler, 400, 450, 200, 50));
+		//p.add(new Platform(handler, 400, 450, 200, 50));
 
-		p.add(new Platform(handler, 0, 450, 200, 50));
+		//p.add(new Platform(handler, 0, 450, 200, 50));
 		
-		p.add(new Platform(handler, 200,200, 200, 50));
+		//p.add(new Platform(handler, 200,200, 200, 50));
 		
-		p.add(new Platform(handler, 600, 400, 200, 50));
+		//p.add(new Platform(handler, 600, 400, 200, 50));
 
-		p.add(new Platform(handler, -200, 400, 200, 50));
+		//p.add(new Platform(handler, -200, 400, 200, 50));
 		
-		p.add(new Platform(handler, r.nextInt(handler.getWidth()) , r.nextInt(handler.getHeight()) - 300, 200, 50));
+		//p.add(new Platform(handler, r.nextInt(handler.getWidth()) , r.nextInt(handler.getHeight()) - 300, 200, 50));
 
-		p.add(new Platform(handler, r.nextInt(handler.getWidth()) - 600, r.nextInt(handler.getHeight()), 200, 50));
+		//p.add(new Platform(handler, r.nextInt(handler.getWidth()) - 600, r.nextInt(handler.getHeight()), 200, 50));
 
-		p.add(new Platform(handler, r.nextInt(handler.getWidth()), r.nextInt(handler.getHeight()), 200, 50));
+		//p.add(new Platform(handler, r.nextInt(handler.getWidth()), r.nextInt(handler.getHeight()), 200, 50));
+ 
+		p.add(new MovingPlatformHor(handler, 200, 200, 200, 50, 400, 800, 3, true));
+		p.add(new MovingPlatformVert(handler, 200, 200, 200, 50, 120, 600, 3, true));
 
 
 	}
@@ -69,6 +74,11 @@ public class GameState extends State{
 		player.setOnLeft(false);
 		player.setOnRight(false);
 		
+		player.setPlatOnBottom(null);
+		player.setPlatOnTop(null);
+		player.setPlatOnLeft(null);
+		player.setPlatOnRight(null);
+		
 		for (Platform plat: p) {
 			if (Collision.isCollisionBottom(player, plat)) {
 				player.setOnGround(true);
@@ -76,6 +86,7 @@ public class GameState extends State{
 			}
 			if (Collision.isAdjacentBottom(player, plat)) {
 				player.setAdjGround(true);
+				player.setPlatOnBottom(plat);
 			}
 			if (Collision.isCollisionTop(player, plat)) {
 				player.setOnCeiling(true);
@@ -90,6 +101,11 @@ public class GameState extends State{
 				player.setOnRight(true);
 				player.setPlatOnRight(plat);
 			}
+		}
+		
+		
+		for(Platform plat: p) {
+			plat.tick();
 		}
 	}
 

@@ -106,8 +106,12 @@ public class Player extends Creature {
 			y = platOnTop.getY() + platOnTop.getHeight();	
 			System.out.println("Ceiling");
 		}
-		
+		if(platOnBottom != null) {
+			xMove += platOnBottom.xMove;
+		}
 		move();
+
+		
 		
 		//posistions gameCamera correctly
 		if(this.x + this.width/2.0 - handler.getGameCamera().getxOffset() > (handler.getWidth()- viewShiftDistanceHor)) {
