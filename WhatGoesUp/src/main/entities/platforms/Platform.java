@@ -11,6 +11,12 @@ public class Platform extends Entity {
 	public Platform(Handler handler, double x, double y, int width, int height) {
 		super(handler, x, y, width, height);
 	}
+	public Platform(Handler handler, double x, double y) {
+		super(handler, x, y, 200, 25);
+	}
+	public Platform(Handler handler, double x, double y, int width) {
+		super(handler, x, y, width, 25);
+	}
 
 	@Override
 	public void tick() {

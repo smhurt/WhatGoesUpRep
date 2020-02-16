@@ -12,12 +12,15 @@ public class Player extends Creature {
 	
 	private static int viewShiftDistanceVert, viewShiftDistanceHor;
 	
+	private static boolean doubleJump = true;
+	
+	private static double chargeCount;
 	
 	
 	public Player(Handler handler, double x, double y, double speed) {
 		super(handler, x, y, playerHeight, playerWidth);
 		this.speed = speed;
-		this.jumpSpeed = 20;
+		this.jumpSpeed = 15;
 		viewShiftDistanceVert = handler.getHeight()/4;
 		viewShiftDistanceHor = handler.getWidth()/4;
 	}
@@ -53,13 +56,23 @@ public class Player extends Creature {
 		if(onLeft) {x++; System.out.println("left");}
 		if(onRight) {x--; System.out.println("Right");}
 		
-		//jump/accellerate
 		
 		if(y > handler.getHeight()) y = -height;//wrap function (not for end product)
 		
-		if(!(onGround|| adjGround) && yMove <= 20) {
-			yMove += accel;
+		//jump/accellerate
+		if(!(onGround|| adjGround)) {
+			if(yMove <= 20) {
+				yMove += accel;
+			}
+			//double jump
+			if(doubleJump && handler.getKeyManager().upPressed) {
+				yMove = -jumpSpeed;
+				doubleJump = false;
+			}
 		}
+		
+		//burst upward
+		//prevents falling into ground
 		if(onGround) {
 			System.out.println("Ground");
 			//if(handler.getKeyManager().up) {
@@ -68,12 +81,18 @@ public class Player extends Creature {
 			y = platOnBottom.getY() - this.getHeight();
 			
 		}
+		//normal ground state(slightly above the platform)
 		if(adjGround) {
 			if(handler.getKeyManager().up) {
+				
 				yMove = -jumpSpeed;
+				doubleJump = true;
+			}
+			if(handler.getKeyManager().down) {
+				
 			}
 		}
-		
+		//prevents going into ceiling
 		if(onCeiling) {
 			yMove = 0;
 			y = platOnTop.getY() + platOnTop.getHeight();	
@@ -81,6 +100,8 @@ public class Player extends Creature {
 		}
 		
 		move();
+		
+		//posistions gameCamera correctly
 		if(this.x + this.width/2.0 - handler.getGameCamera().getxOffset() > (handler.getWidth()- viewShiftDistanceHor)) {
 			handler.getGameCamera().setxOffset(this.x + this.width/2.0 - (handler.getWidth()- viewShiftDistanceHor));
 		}

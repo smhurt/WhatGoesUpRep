@@ -10,6 +10,7 @@ import main.gfx.Assets;
 import main.gfx.Background;
 import main.entities.Entity;
 import main.entities.creatures.*;
+import java.util.Random;
 
 // random comment for github test
 //another comment
@@ -26,6 +27,7 @@ public class GameState extends State{
 	
 	private ArrayList<Platform> p = new ArrayList<Platform>(100);
 	
+	Random r = new Random();
 	public GameState(Handler handler) {
 		super(handler);
 		
@@ -33,9 +35,9 @@ public class GameState extends State{
 		
 		background = new Background(handler, Assets.battlefieldSprite);
 		
-		player = new Player(handler, 200, 300, 4);
+		player = new Player(handler, 0, 0, 8);
 		
-		p.add( new Platform(handler, 200, 550, 200, 50));
+		p.add(new Platform(handler, 200, 550, 200, 50));
 		
 		p.add(new Platform(handler, 400, 450, 200, 50));
 
@@ -43,9 +45,16 @@ public class GameState extends State{
 		
 		p.add(new Platform(handler, 200,200, 200, 50));
 		
-		p.add(new Platform(handler, 600, 450, 200, 50));
+		p.add(new Platform(handler, 600, 400, 200, 50));
 
-		p.add(new Platform(handler, -200, 450, 200, 50));
+		p.add(new Platform(handler, -200, 400, 200, 50));
+		
+		p.add(new Platform(handler, r.nextInt(handler.getWidth()) , r.nextInt(handler.getHeight()) - 300, 200, 50));
+
+		p.add(new Platform(handler, r.nextInt(handler.getWidth()) - 600, r.nextInt(handler.getHeight()), 200, 50));
+
+		p.add(new Platform(handler, r.nextInt(handler.getWidth()), r.nextInt(handler.getHeight()), 200, 50));
+
 
 	}
 

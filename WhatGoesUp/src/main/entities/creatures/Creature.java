@@ -12,8 +12,8 @@ import main.state.GameState;
 public abstract class Creature extends Entity{
 	
 	public static final double DEFAULT_SPEED = 3.0f,
-								DEFAULT_CREATURE_ACCEL = 1,
-								DEFAULT_JUMP_SPEED = 10;
+								DEFAULT_CREATURE_ACCEL = .75,
+								DEFAULT_JUMP_SPEED = 6;
 	public static final int DEFAULT_CREATURE_WIDTH = 128, 
 							DEFAULT_CREATURE_HEIGHT = 128;
 							
